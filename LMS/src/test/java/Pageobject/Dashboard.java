@@ -1,43 +1,41 @@
 package Pageobject;
 
-import java.time.Duration;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import Utilities.WaitUtils;
 
 public class Dashboard {
 	WebDriver driver;
-	
-	public Dashboard(WebDriver driver) {
-		this.driver = driver;
-	}
-	
+	WaitUtils waitUtils;
+
 	By popup1 = By.xpath("//span[text()='Later']");
 	By headerlms = By.id("messageWid");
 	By LMS = By.id("messageCount");
-	
+
+	public Dashboard(WebDriver driver, WaitUtils waitUtils) {
+		this.driver = driver;
+		this.waitUtils = waitUtils;
+	}
+
 	public void popup() {
-		    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+		try {
+			// Adding static wait to give time for the popup to appear
+			Thread.sleep(3000);
 
-		    try {
-		        WebElement laterBtn = wait.until(ExpectedConditions.elementToBeClickable(popup1));
-		        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", laterBtn);
-		    } catch (Exception e) {
-		        System.out.println("Popup not displayed or already handled.");
-		    }
+			WebElement laterBtn = waitUtils.waitForClickability(driver.findElement(popup1));
+			((JavascriptExecutor) driver).executeScript("arguments[0].click();", laterBtn);
+		} catch (Exception e) {
+			System.out.println("Popup not found or not clickable. Skipping popup.");
+		}
 	}
-
-
-	public void LandingonLMS() throws InterruptedException {
+	public void LMSclick() {
 		driver.findElement(headerlms).click();
-		Thread.sleep(2000);
 		driver.navigate().back();
-		Thread.sleep(3000);
-		driver.findElement(LMS).click();
-	}
+		WebElement lms=waitUtils.waitForClickability(driver.findElement(LMS));
+		((JavascriptExecutor) driver).executeScript("arguments[0].click();", lms);
 
-}
+		
+	}
+	}
