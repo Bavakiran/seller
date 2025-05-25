@@ -47,6 +47,7 @@ public class Landingrun extends LandonDashboard {
 	@Test(priority = 3)
 	public void Menu() throws InterruptedException {
 		menu.AddContact("Kiran", "9876543210", "QA Engineer");
+		
 	}
-
+	
 }
