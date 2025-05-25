@@ -1,35 +1,52 @@
 package Testrun;
 
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import BaseClass.LandonDashboard;
 import Pageobject.Dashboard;
+import Pageobject.LMS;
 import Pageobject.Landings;
+import Pageobject.Menu;
 import Utilities.WaitUtils;
 
 public class Landingrun extends LandonDashboard {
 
 	Landings landing;
 	Dashboard dashboard;
+	LMS lms;
+	Menu menu;
 
-	@Parameters("browser")
-	@BeforeMethod
-	public void launchBrowser(String browser) {
-		setUp(browser);
+	@BeforeClass
+	public void launchBrowser() {
+		setUp();
 		landing = new Landings(driver, waitUtils);
 		dashboard = new Dashboard(driver, waitUtils);
+		lms = new LMS(driver, waitUtils);
+		menu = new Menu(driver, waitUtils);
 	}
 
-	@Test
+	@Test(priority = 1)
 	public void verifyLandingFlow() throws InterruptedException {
 		landing.enterMobileNumber("8610237001");
 		landing.clickOnStartSelling();
 		landing.clickPassword();
 		landing.enterPassword("261520");
 		landing.submitPassword();
+
+	}
+
+	@Test(priority = 2)
+	public void LMS() throws InterruptedException {
 		dashboard.popup();
 		dashboard.LMSclick();
 	}
-}   
+
+	@Test(priority = 3)
+	public void Menu() throws InterruptedException {
+		menu.AddContact("Kiran", "9876543210", "QA Engineer");
+	}
+
+}
