@@ -5,8 +5,8 @@
     <classes>
       <class name="Testrun.Landingrun">
         <methods>
+          <include name="Menu"/>
           <include name="launchBrowser"/>
-          <include name="verifyLandingFlow"/>
         </methods>
       </class> <!-- Testrun.Landingrun -->
     </classes>

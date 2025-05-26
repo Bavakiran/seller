@@ -1,8 +1,6 @@
 package Testrun;
 
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import BaseClass.LandonDashboard;
@@ -10,7 +8,6 @@ import Pageobject.Dashboard;
 import Pageobject.LMS;
 import Pageobject.Landings;
 import Pageobject.Menu;
-import Utilities.WaitUtils;
 
 public class Landingrun extends LandonDashboard {
 
@@ -18,6 +15,7 @@ public class Landingrun extends LandonDashboard {
 	Dashboard dashboard;
 	LMS lms;
 	Menu menu;
+	
 
 	@BeforeClass
 	public void launchBrowser() {
@@ -26,6 +24,7 @@ public class Landingrun extends LandonDashboard {
 		dashboard = new Dashboard(driver, waitUtils);
 		lms = new LMS(driver, waitUtils);
 		menu = new Menu(driver, waitUtils);
+		
 	}
 
 	@Test(priority = 1)
@@ -46,8 +45,17 @@ public class Landingrun extends LandonDashboard {
 
 	@Test(priority = 3)
 	public void Menu() throws InterruptedException {
-		menu.AddContact("Kiran", "9876543210", "QA Engineer");
-		
+		//menu.AddContact("Kiran", "9876543210", "QA Engineer");
+		menu.HideContact();
+		menu.BlockContact();
+
 	}
 	
-}
+	
+
+	//@AfterClass
+	//public void closebrowser() {
+		//tearDown();
+
+	}
+
