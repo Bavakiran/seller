@@ -48,6 +48,10 @@ public class Landingrun extends LandonDashboard {
 		//menu.AddContact("Kiran", "9876543210", "QA Engineer");
 		menu.HideContact();
 		menu.BlockContact();
+		menu.SupportandInformation();
+		menu.HelpVideos();
+		menu.PerformanceReports();
+		
 
 	}
 	

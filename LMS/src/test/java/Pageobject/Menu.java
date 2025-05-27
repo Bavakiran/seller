@@ -1,5 +1,8 @@
 package Pageobject;
 
+import java.util.List;
+import java.util.Set;
+
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -50,6 +53,19 @@ public class Menu {
 	public WebElement blockedcontacts;
 	@FindBy(xpath = "//span[@title='Unblock']")
 	public WebElement unblock;
+	@FindBy(xpath = "//div[contains(text(),'Support & Information')]")
+	public WebElement SupportandInfo;
+	@FindBy(xpath = "//div[contains(text(),'All Alerts')]")
+	public WebElement AllAlerts;
+	@FindBy(xpath = "//li[contains(text(),'Past')]")
+	public WebElement past;
+	@FindBy(xpath = "//li[contains(text(),'Active')]")
+	public WebElement active;
+	@FindBy(xpath = "//div[normalize-space()='Help Videos']")
+	public WebElement helpvideos;
+	@FindBy(xpath = "(//div[text()='Performance Reports'])[1]")
+	public WebElement performancereports;
+	
 	
 	public Menu(WebDriver driver, WaitUtils waitUtils) {
 		this.driver = driver;
@@ -81,6 +97,7 @@ public class Menu {
 		waitUtils.waitForClickability(Hamburger).click();
 		waitUtils.waitForClickability(managecontacts).click();
 		waitUtils.waitForClickability(hiddencontacts).click();
+		Thread.sleep(1000);
 		actions.moveToElement(contacts).perform();
 		actions.contextClick(contacts).perform();
 		waitUtils.waitForClickability(unhidecontacts).click();
@@ -101,8 +118,9 @@ public class Menu {
 		waitUtils.waitForClickability(Hamburger).click();
 		waitUtils.waitForClickability(managecontacts).click();
 		waitUtils.waitForClickability(blockedcontacts).click();
+		Thread.sleep(1000);
 		actions.moveToElement(toblock).perform();
-		actions.contextClick(toblock).perform();
+		Thread.sleep(1000);
 		waitUtils.waitForClickability(unblock).click();
 		waitUtils.waitForClickability(LMS);
 		((JavascriptExecutor) driver).executeScript("arguments[0].click();", LMS);
@@ -110,5 +128,54 @@ public class Menu {
 
 	}
 	
+	public void SupportandInformation() throws InterruptedException {
+		waitUtils.waitForClickability(Hamburger).click();
+		waitUtils.waitForClickability(SupportandInfo).click();
+		waitUtils.waitForClickability(AllAlerts).click();
+		waitUtils.waitForClickability(past).click();
+		waitUtils.waitForClickability(active).click();
+		waitUtils.waitForClickability(LMS);
+		((JavascriptExecutor) driver).executeScript("arguments[0].click();", LMS);
+		
+
+	}
+	
+	public void HelpVideos() throws InterruptedException {
+		waitUtils.waitForClickability(Hamburger).click();
+		waitUtils.waitForClickability(SupportandInfo).click();
+		waitUtils.waitForClickability(helpvideos).click();
+		String parentWindow = driver.getWindowHandle();
+		Set<String> allWindows = driver.getWindowHandles();
+		for (String window : allWindows) {
+			if (!window.equals(parentWindow)) {
+				driver.switchTo().window(window);
+				driver.close();  
+				break;
+			}
+		}
+		driver.switchTo().window(parentWindow);
+		
+		waitUtils.waitForClickability(LMS);
+		((JavascriptExecutor) driver).executeScript("arguments[0].click();", LMS);
+		
+
+	}
+	
+	public void PerformanceReports() throws InterruptedException {
+		waitUtils.waitForClickability(performancereports).click();
+		String parentWindow = driver.getWindowHandle();
+		Set<String> allWindows = driver.getWindowHandles();
+		for (String window : allWindows) {
+			if (!window.equals(parentWindow)) {
+				driver.switchTo().window(window);
+				driver.close();  
+				break;
+			}
+		}
+		driver.switchTo().window(parentWindow);
+		waitUtils.waitForClickability(LMS);
+		((JavascriptExecutor) driver).executeScript("arguments[0].click();", LMS);
+
+	}
 
 }
