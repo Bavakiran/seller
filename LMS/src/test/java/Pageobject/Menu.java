@@ -1,6 +1,6 @@
 package Pageobject;
 
-import java.util.List;
+
 import java.util.Set;
 
 import org.openqa.selenium.JavascriptExecutor;
@@ -9,6 +9,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.testng.Assert;
 
 import Utilities.WaitUtils;
 
@@ -41,9 +42,11 @@ public class Menu {
 	public WebElement hiddencontacts;
 	@FindBy(className = "three_dot_icns")
 	public WebElement unhidecontacts;
-	@FindBy(xpath = "//*[@id=\"message_tab\"]/a")
+	@FindBy(id = "leftnav_dash_link")
 	public WebElement LMS;
-	@FindBy(xpath = "//div[contains(text(),\"Nellai Ceramic Centre\")]")
+	@FindBy(id = "messageCount")
+	public WebElement LMS1;
+	@FindBy(xpath = "//div[contains(text(),\"Rehoboth\")]")
 	public WebElement toblock;
 	@FindBy(xpath = "//span[contains(text(),\"Block\")]")
 	public WebElement block;
@@ -65,8 +68,13 @@ public class Menu {
 	public WebElement helpvideos;
 	@FindBy(xpath = "(//div[text()='Performance Reports'])[1]")
 	public WebElement performancereports;
-	
-	
+	@FindBy(xpath = "//div[text()='Import / Export Leads']")
+	public WebElement ImportExportLeads;
+	@FindBy(xpath = "//div[text()='Pull API']")
+	public WebElement pullAPI;
+	@FindBy(xpath = "//div[text()='Push API']")
+	public WebElement pushAPI;
+
 	public Menu(WebDriver driver, WaitUtils waitUtils) {
 		this.driver = driver;
 		this.waitUtils = waitUtils;
@@ -101,33 +109,43 @@ public class Menu {
 		actions.moveToElement(contacts).perform();
 		actions.contextClick(contacts).perform();
 		waitUtils.waitForClickability(unhidecontacts).click();
-		waitUtils.waitForClickability(LMS);
-		((JavascriptExecutor) driver).executeScript("arguments[0].click();", LMS);
 		
-
+		
 	}
+
 	public void BlockContact() throws InterruptedException {
-		Thread.sleep(2000);
-		Actions actions = new Actions(driver);
-		actions.moveToElement(toblock).perform();
-		actions.contextClick(toblock).perform();
-		JavascriptExecutor js = (JavascriptExecutor) driver;
-		js.executeScript("arguments[0].click();", block);
-		waitUtils.waitForClickability(blockconf).click();
-		Thread.sleep(3000);
-		waitUtils.waitForClickability(Hamburger).click();
-		waitUtils.waitForClickability(managecontacts).click();
-		waitUtils.waitForClickability(blockedcontacts).click();
-		Thread.sleep(1000);
-		actions.moveToElement(toblock).perform();
-		Thread.sleep(1000);
-		waitUtils.waitForClickability(unblock).click();
-		waitUtils.waitForClickability(LMS);
 		((JavascriptExecutor) driver).executeScript("arguments[0].click();", LMS);
-		
+		LMS1.click();
+		waitUtils.waitForVisibility(Hamburger).click(); 
+	    waitUtils.waitForClickability(Hamburger).click(); 
+	    waitUtils.waitForClickability(toblock);
+
+	    Actions actions = new Actions(driver);
+	    actions.moveToElement(toblock).contextClick().perform();
+
+	    JavascriptExecutor js = (JavascriptExecutor) driver;
+	    js.executeScript("arguments[0].click();", block);
+
+	    waitUtils.waitForClickability(blockconf).click();
+
+	    Thread.sleep(2000); 
+
+	    waitUtils.waitForClickability(Hamburger).click();
+	    waitUtils.waitForClickability(managecontacts).click();
+	    waitUtils.waitForClickability(blockedcontacts).click();
+
+	    waitUtils.waitForClickability(toblock);
+	    actions.moveToElement(toblock).perform();
+	    Thread.sleep(1000); 
+
+	    waitUtils.waitForClickability(unblock).click();
+
+	    waitUtils.waitForClickability(LMS);
+	    LMS1.click();
 
 	}
-	
+
+
 	public void SupportandInformation() throws InterruptedException {
 		waitUtils.waitForClickability(Hamburger).click();
 		waitUtils.waitForClickability(SupportandInfo).click();
@@ -136,11 +154,11 @@ public class Menu {
 		waitUtils.waitForClickability(active).click();
 		waitUtils.waitForClickability(LMS);
 		((JavascriptExecutor) driver).executeScript("arguments[0].click();", LMS);
-		
 
 	}
-	
+
 	public void HelpVideos() throws InterruptedException {
+		LMS1.click();
 		waitUtils.waitForClickability(Hamburger).click();
 		waitUtils.waitForClickability(SupportandInfo).click();
 		waitUtils.waitForClickability(helpvideos).click();
@@ -149,26 +167,26 @@ public class Menu {
 		for (String window : allWindows) {
 			if (!window.equals(parentWindow)) {
 				driver.switchTo().window(window);
-				driver.close();  
+				driver.close();
 				break;
 			}
 		}
 		driver.switchTo().window(parentWindow);
-		
+
 		waitUtils.waitForClickability(LMS);
 		((JavascriptExecutor) driver).executeScript("arguments[0].click();", LMS);
-		
 
 	}
-	
+
 	public void PerformanceReports() throws InterruptedException {
+		waitUtils.waitForClickability(LMS1).click();
 		waitUtils.waitForClickability(performancereports).click();
 		String parentWindow = driver.getWindowHandle();
 		Set<String> allWindows = driver.getWindowHandles();
 		for (String window : allWindows) {
 			if (!window.equals(parentWindow)) {
 				driver.switchTo().window(window);
-				driver.close();  
+				driver.close();
 				break;
 			}
 		}
@@ -177,5 +195,44 @@ public class Menu {
 		((JavascriptExecutor) driver).executeScript("arguments[0].click();", LMS);
 
 	}
+
+
+
+public void ImportExportLeads() throws InterruptedException {
+	LMS1.click();
+	waitUtils.waitForClickability(Hamburger).click();
+	waitUtils.waitForClickability(ImportExportLeads).click();
+	waitUtils.waitForClickability(pullAPI).click();
+	String parentWindow = driver.getWindowHandle();
+	Set<String> allWindows = driver.getWindowHandles();
+	for (String window : allWindows) {
+		if (!window.equals(parentWindow)) {
+			driver.switchTo().window(window);
+			Thread.sleep(1000);
+			String pageBody = driver.getPageSource();
+	        Assert.assertTrue(pageBody.contains("paid service"), "Text 'paid service' not found in page body");
+			break;
+		}
+	}
+	driver.switchTo().window(parentWindow);
+	waitUtils.waitForClickability(ImportExportLeads).click();
+	waitUtils.waitForClickability(pushAPI).click();
+	String parentWindow1 = driver.getWindowHandle();
+	Set<String> allWindows1 = driver.getWindowHandles();
+	for (String window : allWindows1) {
+		if (!window.equals(parentWindow1)) {
+			driver.switchTo().window(window);
+			Thread.sleep(1000);
+			String pageBody = driver.getPageSource();
+	        Assert.assertTrue(pageBody.contains("paid service"), "Text 'paid service' not found in page body");
+			break;
+		}
+	}
+	driver.switchTo().window(parentWindow);
+	
+
+}
+
+
 
 }

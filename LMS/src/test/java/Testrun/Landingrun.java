@@ -39,7 +39,6 @@ public class Landingrun extends LandonDashboard {
 
 	@Test(priority = 2)
 	public void LMS() throws InterruptedException {
-		dashboard.popup();
 		dashboard.LMSclick();
 	}
 
@@ -51,6 +50,7 @@ public class Landingrun extends LandonDashboard {
 		menu.SupportandInformation();
 		menu.HelpVideos();
 		menu.PerformanceReports();
+		menu.ImportExportLeads();
 		
 
 	}
