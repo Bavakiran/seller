@@ -51,6 +51,7 @@ public class Landingrun extends LandonDashboard {
 		menu.HelpVideos();
 		menu.PerformanceReports();
 		menu.ImportExportLeads();
+		menu.ShipwithIM();
 		
 
 	}

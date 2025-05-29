@@ -7,7 +7,6 @@
         <methods>
           <include name="Menu"/>
           <include name="launchBrowser"/>
-          <include name="LMS"/>
         </methods>
       </class> <!-- Testrun.Landingrun -->
     </classes>

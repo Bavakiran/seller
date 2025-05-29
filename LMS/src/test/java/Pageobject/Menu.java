@@ -1,6 +1,5 @@
 package Pageobject;
 
-
 import java.util.Set;
 
 import org.openqa.selenium.JavascriptExecutor;
@@ -32,7 +31,7 @@ public class Menu {
 	public WebElement note;
 	@FindBy(id = "addcon")
 	public WebElement submit;
-	@FindBy(xpath = "//div[contains(text(),'Kiran')][1]")
+	@FindBy(xpath = "//div[@role=\"gridcell\"][1]")
 	public WebElement contacts;
 	@FindBy(xpath = "//div[@id='all_features_caret']")
 	public WebElement dropdown;
@@ -74,6 +73,10 @@ public class Menu {
 	public WebElement pullAPI;
 	@FindBy(xpath = "//div[text()='Push API']")
 	public WebElement pushAPI;
+	@FindBy(xpath = "//div[text()='Book Transport with IM']")
+	public WebElement BookTransport;
+	@FindBy(className = "exitBtnIcon")
+	public WebElement BookTransportexit;// Assuming this is the element for Book Transport with IM;
 
 	public Menu(WebDriver driver, WaitUtils waitUtils) {
 		this.driver = driver;
@@ -89,7 +92,6 @@ public class Menu {
 		name.sendKeys(nam);
 		mobile.sendKeys(num);
 		note.sendKeys(not);
-		Thread.sleep(2000);
 		// waitUtils.waitForClickability(submit).click();
 
 	}
@@ -109,42 +111,40 @@ public class Menu {
 		actions.moveToElement(contacts).perform();
 		actions.contextClick(contacts).perform();
 		waitUtils.waitForClickability(unhidecontacts).click();
-		
-		
+
 	}
 
 	public void BlockContact() throws InterruptedException {
 		((JavascriptExecutor) driver).executeScript("arguments[0].click();", LMS);
 		LMS1.click();
-		waitUtils.waitForVisibility(Hamburger).click(); 
-	    waitUtils.waitForClickability(Hamburger).click(); 
-	    waitUtils.waitForClickability(toblock);
+		waitUtils.waitForVisibility(Hamburger).click();
+		waitUtils.waitForClickability(Hamburger).click();
+		waitUtils.waitForClickability(toblock);
 
-	    Actions actions = new Actions(driver);
-	    actions.moveToElement(toblock).contextClick().perform();
+		Actions actions = new Actions(driver);
+		actions.moveToElement(toblock).contextClick().perform();
 
-	    JavascriptExecutor js = (JavascriptExecutor) driver;
-	    js.executeScript("arguments[0].click();", block);
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		js.executeScript("arguments[0].click();", block);
 
-	    waitUtils.waitForClickability(blockconf).click();
+		waitUtils.waitForClickability(blockconf).click();
 
-	    Thread.sleep(2000); 
+		Thread.sleep(2000);
 
-	    waitUtils.waitForClickability(Hamburger).click();
-	    waitUtils.waitForClickability(managecontacts).click();
-	    waitUtils.waitForClickability(blockedcontacts).click();
+		waitUtils.waitForClickability(Hamburger).click();
+		waitUtils.waitForClickability(managecontacts).click();
+		waitUtils.waitForClickability(blockedcontacts).click();
 
-	    waitUtils.waitForClickability(toblock);
-	    actions.moveToElement(toblock).perform();
-	    Thread.sleep(1000); 
+		waitUtils.waitForClickability(toblock);
+		actions.moveToElement(toblock).perform();
+		Thread.sleep(1000);
 
-	    waitUtils.waitForClickability(unblock).click();
+		waitUtils.waitForClickability(unblock).click();
 
-	    waitUtils.waitForClickability(LMS);
-	    LMS1.click();
+		waitUtils.waitForClickability(LMS);
+		LMS1.click();
 
 	}
-
 
 	public void SupportandInformation() throws InterruptedException {
 		waitUtils.waitForClickability(Hamburger).click();
@@ -196,43 +196,43 @@ public class Menu {
 
 	}
 
-
-
-public void ImportExportLeads() throws InterruptedException {
-	LMS1.click();
-	waitUtils.waitForClickability(Hamburger).click();
-	waitUtils.waitForClickability(ImportExportLeads).click();
-	waitUtils.waitForClickability(pullAPI).click();
-	String parentWindow = driver.getWindowHandle();
-	Set<String> allWindows = driver.getWindowHandles();
-	for (String window : allWindows) {
-		if (!window.equals(parentWindow)) {
-			driver.switchTo().window(window);
-			Thread.sleep(1000);
-			String pageBody = driver.getPageSource();
-	        Assert.assertTrue(pageBody.contains("paid service"), "Text 'paid service' not found in page body");
-			break;
+	public void ImportExportLeads() throws InterruptedException {
+		LMS1.click();
+		waitUtils.waitForClickability(Hamburger).click();
+		waitUtils.waitForClickability(ImportExportLeads).click();
+		waitUtils.waitForClickability(pullAPI).click();
+		String parentWindow = driver.getWindowHandle();
+		Set<String> allWindows = driver.getWindowHandles();
+		for (String window : allWindows) {
+			if (!window.equals(parentWindow)) {
+				driver.switchTo().window(window);
+				Thread.sleep(1000);
+				String pageBody = driver.getPageSource();
+				Assert.assertTrue(pageBody.contains("paid service"), "Text 'paid service' not found in page body");
+				break;
+			}
 		}
-	}
-	driver.switchTo().window(parentWindow);
-	waitUtils.waitForClickability(ImportExportLeads).click();
-	waitUtils.waitForClickability(pushAPI).click();
-	String parentWindow1 = driver.getWindowHandle();
-	Set<String> allWindows1 = driver.getWindowHandles();
-	for (String window : allWindows1) {
-		if (!window.equals(parentWindow1)) {
-			driver.switchTo().window(window);
-			Thread.sleep(1000);
-			String pageBody = driver.getPageSource();
-	        Assert.assertTrue(pageBody.contains("paid service"), "Text 'paid service' not found in page body");
-			break;
+		driver.switchTo().window(parentWindow);
+		waitUtils.waitForClickability(ImportExportLeads).click();
+		waitUtils.waitForClickability(pushAPI).click();
+		String parentWindow1 = driver.getWindowHandle();
+		Set<String> allWindows1 = driver.getWindowHandles();
+		for (String window : allWindows1) {
+			if (!window.equals(parentWindow1)) {
+				driver.switchTo().window(window);
+				Thread.sleep(1000);
+				String pageBody = driver.getPageSource();
+				Assert.assertTrue(pageBody.contains("paid service"), "Text 'paid service' not found in page body");
+				break;
+			}
 		}
+		driver.switchTo().window(parentWindow);
+
 	}
-	driver.switchTo().window(parentWindow);
-	
 
-}
+	public void ShipwithIM() throws InterruptedException {
+		waitUtils.waitForClickability(BookTransport).click();
+		waitUtils.waitForClickability(BookTransportexit).click();
 
-
-
+	}
 }
