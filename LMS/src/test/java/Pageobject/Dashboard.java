@@ -38,6 +38,7 @@ public class Dashboard {
 		}
 	}
 	public void LMSclick() throws InterruptedException {
+		Thread.sleep(1000);
 		headerlms.click();
 		driver.navigate().back();
 		Thread.sleep(2000);

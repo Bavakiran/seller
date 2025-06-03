@@ -8,6 +8,7 @@ import Pageobject.Dashboard;
 import Pageobject.LMS;
 import Pageobject.Landings;
 import Pageobject.Menu;
+import Pageobject.listView;
 
 public class Landingrun extends LandonDashboard {
 
@@ -15,6 +16,7 @@ public class Landingrun extends LandonDashboard {
 	Dashboard dashboard;
 	LMS lms;
 	Menu menu;
+	listView listview;
 	
 
 	@BeforeClass
@@ -24,6 +26,7 @@ public class Landingrun extends LandonDashboard {
 		dashboard = new Dashboard(driver, waitUtils);
 		lms = new LMS(driver, waitUtils);
 		menu = new Menu(driver, waitUtils);
+		listview = new listView(driver, waitUtils);
 		
 	}
 
@@ -52,10 +55,16 @@ public class Landingrun extends LandonDashboard {
 		menu.PerformanceReports();
 		menu.ImportExportLeads();
 		menu.ShipwithIM();
+	
 		
 
 	}
 	
+	@Test(priority = 4)
+	public void ListView() throws InterruptedException {
+		listview.clickListView();
+		listview.dropdown();
+	}
 	
 
 	//@AfterClass

@@ -1,7 +1,7 @@
 package Pageobject;
 
+import java.time.Duration;
 import java.util.Set;
-
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -45,7 +45,7 @@ public class Menu {
 	public WebElement LMS;
 	@FindBy(id = "messageCount")
 	public WebElement LMS1;
-	@FindBy(xpath = "//div[contains(text(),\"Rehoboth\")]")
+	@FindBy(xpath = "//div[@role=\"gridcell\"][2]")
 	public WebElement toblock;
 	@FindBy(xpath = "//span[contains(text(),\"Block\")]")
 	public WebElement block;
@@ -76,7 +76,7 @@ public class Menu {
 	@FindBy(xpath = "//div[text()='Book Transport with IM']")
 	public WebElement BookTransport;
 	@FindBy(className = "exitBtnIcon")
-	public WebElement BookTransportexit;// Assuming this is the element for Book Transport with IM;
+	public WebElement BookTransportexit;
 
 	public Menu(WebDriver driver, WaitUtils waitUtils) {
 		this.driver = driver;
@@ -138,7 +138,7 @@ public class Menu {
 		waitUtils.waitForClickability(toblock);
 		actions.moveToElement(toblock).perform();
 		Thread.sleep(1000);
-
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
 		waitUtils.waitForClickability(unblock).click();
 
 		waitUtils.waitForClickability(LMS);
@@ -209,7 +209,9 @@ public class Menu {
 				Thread.sleep(1000);
 				String pageBody = driver.getPageSource();
 				Assert.assertTrue(pageBody.contains("paid service"), "Text 'paid service' not found in page body");
+				driver.close();
 				break;
+				
 			}
 		}
 		driver.switchTo().window(parentWindow);
@@ -223,6 +225,7 @@ public class Menu {
 				Thread.sleep(1000);
 				String pageBody = driver.getPageSource();
 				Assert.assertTrue(pageBody.contains("paid service"), "Text 'paid service' not found in page body");
+				driver.close();
 				break;
 			}
 		}
@@ -235,4 +238,5 @@ public class Menu {
 		waitUtils.waitForClickability(BookTransportexit).click();
 
 	}
+	
 }

@@ -16,7 +16,7 @@ public class LandonDashboard {
 
     public void setUp() {
        {
-            System.setProperty("webdriver.chrome.driver", "C:\\Users\\bavak\\Downloads\\chromedriver-win64 (3)\\chromedriver-win64\\chromedriver.exe");
+            System.setProperty("webdriver.chrome.driver", "C:\\Users\\bavak\\Downloads\\chromedriver-win64 (6)\\chromedriver-win64\\chromedriver.exe");
             ChromeOptions options = new ChromeOptions();
             options.addArguments("--start-maximized", "--disable-notifications");
             driver = new ChromeDriver(options);
