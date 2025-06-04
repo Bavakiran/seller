@@ -29,11 +29,11 @@ public class listView {
 	public WebElement dropDownOptionLocator;
 	@FindBy(xpath = "//li[normalize-space()='All Contacts']")
 	public WebElement finalclick;
-	
 	String liXpath = "//*[@id='root']/div[6]/div/div/section/div/div/div[1]/div[2]//li";
-	
-	
+	@FindBy(id = "searchauto")
+	public WebElement search;
 
+	
 	public listView(WebDriver driver, WaitUtils waitUtils) {
 		this.driver = driver;
 		this.waitUtils = waitUtils;
@@ -79,6 +79,25 @@ public class listView {
 		    finalclick.click();
 		}
 
+	public void searchbox(String nam, String prod, String cit, String comp, String mob) throws InterruptedException {
+		search.sendKeys(nam);
+		Thread.sleep(2000);
+		search.clear();
+		search.sendKeys(prod);
+		Thread.sleep(2000);
+		search.clear();
+		search.sendKeys(cit);
+		Thread.sleep(2000);
+		search.clear();
+		search.sendKeys(comp);
+		Thread.sleep(2000);
+		search.clear();
+		search.sendKeys(mob);
+		
+		
 		
 	}
+	}
+		
+	
 

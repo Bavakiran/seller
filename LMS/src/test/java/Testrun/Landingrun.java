@@ -64,6 +64,7 @@ public class Landingrun extends LandonDashboard {
 	public void ListView() throws InterruptedException {
 		listview.clickListView();
 		listview.dropdown();
+		listview.searchbox("kiran","cotton", "chennai", "Wrapper", "9876543210" );
 	}
 	
 
